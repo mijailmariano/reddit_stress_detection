@@ -20,11 +20,11 @@ from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 
 
-# lowercases all letters
-# normalizes unicode characters
-# replaces non-alphanumeric characters with whitespace
 def basic_clean(string):
-    '''Key text cleaning functions'''
+    '''Key text cleaning functions
+    - lowercases all letters
+    - normalizes unicode characters
+    - replaces non-alphanumeric characters with whitespace'''
 
     # lowercase the text
     string = string.lower()
@@ -68,10 +68,10 @@ def porter_stem(string):
     # creating the object
     ps = PorterStemmer()
     
-    # using list comprehension to return the stem of ea. word in the string as a list
+    # using list comprehension to return the stem of each word in the string as a list
     stems = [ps.stem(word) for word in string.split()]
 
-    # then re-joining ea. word as a single string text w/ a space in between ea. word
+    # then re-joining each word as a single string text w/ a space in between ea. word
     stemmed_string = ' '.join(stems)
 
     return stemmed_string
@@ -100,12 +100,25 @@ def remove_stopwords(string, exclude_words = None, include_words = None):
 
     # including potential redundant words in scrape
     include_words = [
-                    "metaverse", 
-                    "Metaverse", 
-                    "meta verse", 
-                    "Meta Verse", 
-                    "Meta verse",
-                    'see', 'http', 'com','github','org', 'source', 'example', 'code', 'use', '1', "'", ';', '&#9']
+                    "stress",
+                    "anxiety",
+                    "depression",
+                    "mental",
+                    "mad",
+                    "upset",
+                    "sad",
+                    "ill",
+                    "illness",
+                    "depress",
+                    "strain",
+                    "burden",
+                    "tension",
+                    "trauma",
+                    "worry",
+                    "anger",
+                    "concern",
+                    "irritation",
+                    ]
 
     # creating the list of english stop words
     stopword_list = stopwords.words('english')
@@ -158,36 +171,6 @@ def mass_text_clean(text, include_words=None, exclude_words=None):
     text = remove_stopwords(text, include_words = include_words, exclude_words = exclude_words)
 
     return text
-
-
-def update_languages(df):
-    ''' Dataset has multiple languages. Some languages are iterations of other languages.
-    This function is to replace some of the languages names so the are in the same category'''
-
-    # Jupyter notebook as Python
-    df = df.replace('Jupyter Notebook', 'Python')
-
-    # C Related Languages
-    df = df.replace(('Objective-C++','Objective-C','C','C++','C#','SuperCollider','GLSL'),'C')
-
-    # Java Related Languages ans sublanguages
-    df = df.replace(('JavaScript', 'Vue','Clojure','Kotlin','EJS'), 'Java')
-
-    # TypeScript Languages
-    df = df.replace('Svelte','TypeScript')
-
-    # Microsoft languages for windows applications
-    df = df.replace(('PowerShell','Batchfile','Shell'),'Microsoft')
-
-    # iOS related languages
-    df = df.replace(('Metal','Swift'),'iOS')
-
-    # languages with < 10 usage
-    df = df.replace(('Microsoft','ShaderLab','SCSS','PHP','iOS','GDScript','Roff','HCL','TeX', 'Cadence','R','LSL','ASP.NET'),'other')
-
-    # NaNs
-    df=df.replace('nan', 'text')
-    return df
 
 
 
