@@ -148,21 +148,8 @@ def remove_stopwords(string, exclude_words = None, include_words = None):
     return filtered_string
 
 
-def clean_data_objects(df):
-    '''Function to clean the original df data types'''
-
-    df = df[[
-        "repo", \
-        "language", \
-        "readme_contents"]].astype(str)
-
-    print(f'df shape: {df.shape}')
-
-    return df
-
-
 def mass_text_clean(text, include_words=None, exclude_words=None):
-    '''Function to mass dataclean the original README repo files'''
+    '''Function to mass dataclean the original Reddit Text data'''
 
     text = basic_clean(text)
 
@@ -184,16 +171,19 @@ def train_validate_test_split(df, target, seed = 123):
     The function returns, in this order, train, validate and test dataframes. 
     '''
 
-    train_validate, test = train_test_split(df, test_size=0.2, 
-                                            random_state=seed, 
-                                            stratify=df[target])
+    train_validate, test = train_test_split(
+                                            df, test_size = 0.2, 
+                                            random_state = seed, 
+                                            stratify = df[target])
 
-    train, validate = train_test_split(train_validate, test_size=0.3, 
-                                       random_state=seed,
-                                       stratify=train_validate[target])
+    train, validate = train_test_split(
+                                        train_validate, 
+                                        test_size = 0.3, 
+                                        random_state = seed,
+                                       stratify = train_validate[target])
 
 
-    # printing the shapes of the datasets
+    # printing the shapes for each of the datasets
     print(f'train shape: {train.shape}')
     print(f'validate shape: {validate.shape}')
     print(f'test shape: {test.shape}')
