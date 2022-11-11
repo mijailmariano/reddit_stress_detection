@@ -44,6 +44,9 @@ def basic_clean(string):
     # removing multiple spaces
     string = re.sub(r'\s+', ' ', string)
 
+    # eliminate any pesky/remaining apostrophes
+    string = string.replace("'", "")
+
     # removing beginning and end whitespaces
     string = string.strip()
 
@@ -159,20 +162,33 @@ def mass_text_clean(text, include_words=None, exclude_words=None):
 
     return text
 
+def show_counts_and_ratios(df, column):
+    '''
+    Takes in a dataframe and a string of a single column
+    Returns a dataframe with absolute value counts and percentage value counts
+    '''
+
+    labels = pd.concat([df[column].value_counts(),
+                    df[column].value_counts(normalize = True)], axis = 1)
+
+    # naming the df columns to represent count (n) and percentage of total
+    labels.columns = ['n', 'percent']
+
+    return labels
 
 
-def train_validate_test_split(df, target, seed = 123):
+def train_validate_test_split(df, target, seed = 808):
     '''
     This function takes in a dataframe, the name of the target variable
-    (for stratification purposes), and an integer for a setting a seed
+    (for stratification purposes), a preset 'seed' for reproduceability,
     and splits the data into train, validate and test. 
-    Test is 20% of the original dataset, validate is .30*.80= 24% of the 
-    original dataset, and train is .70*.80= 56% of the original dataset. 
-    The function returns, in this order, train, validate and test dataframes. 
-    '''
+
+    Test is 20% of the original dataset, validate is ~24% of the 
+    original dataset, and train is ~56% of the original dataset.'''
 
     train_validate, test = train_test_split(
-                                            df, test_size = 0.2, 
+                                            df, 
+                                            test_size = 0.2, 
                                             random_state = seed, 
                                             stratify = df[target])
 
