@@ -14,7 +14,7 @@ import json
 
 
 
-# -------- # 
+# ----------------------------------------------------------- #
 
 def get_reddit_stress():
     '''Function to import the initial Reddit Stress Data.
