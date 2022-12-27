@@ -103,11 +103,12 @@ def lemmatize(string):
 def remove_stopwords(string, exclude_words = None, include_words = None):
     '''Function that removes stop words in text'''
 
-    # including potential redundant words in scrape
+    # including potential synonomous or 'stress' redundant words in scrape
     include_words = [
                     "stress",
                     "anxiety",
                     "depression",
+                    "disorder",
                     "mental",
                     "mad",
                     "upset",
@@ -115,15 +116,31 @@ def remove_stopwords(string, exclude_words = None, include_words = None):
                     "ill",
                     "illness",
                     "depress",
+                    "depressed",
+                    "burnout",
+                    "fatigue",
                     "strain",
                     "burden",
                     "tension",
                     "trauma",
-                    "worry",
                     "anger",
                     "concern",
                     "irritation",
-                    ]
+                    "pressure",
+                    "weight",
+                    "load",
+                    "demand",
+                    "requirement",
+                    "expectation",
+                    "responsibility",
+                    "duty",
+                    "obligation",
+                    "commitment",
+                    "distress",
+                    "worry",
+                    "agitation",
+                    "frustration",
+                    "exasperation"]
 
     # creating the list of english stop words
     stopword_list = stopwords.words('english')
