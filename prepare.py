@@ -21,10 +21,12 @@ from sklearn.model_selection import train_test_split
 
 
 def basic_clean(string):
-    '''Key text cleaning functions
+    '''
+    Key text cleaning functions
     - lowercases all letters
     - normalizes unicode characters
-    - replaces non-alphanumeric characters with whitespace'''
+    - replaces non-alphanumeric characters with whitespace
+    '''
 
     # lowercase the text
     string = string.lower()
@@ -162,6 +164,7 @@ def mass_text_clean(text, include_words=None, exclude_words=None):
 
     return text
 
+
 def show_counts_and_ratios(df, column):
     '''
     Takes in a dataframe and a string of a single column
@@ -178,13 +181,15 @@ def show_counts_and_ratios(df, column):
 
 
 def train_validate_test_split(df, target, seed = 808):
+
     '''
     This function takes in a dataframe, the name of the target variable
     (for stratification purposes), a preset 'seed' for reproduceability,
     and splits the data into train, validate and test. 
 
     Test is 20% of the original dataset, validate is ~24% of the 
-    original dataset, and train is ~56% of the original dataset.'''
+    original dataset, and train is ~56% of the original dataset.
+    '''
 
     train_validate, test = train_test_split(
                                             df, 
